@@ -73,26 +73,11 @@ public class owenplayer {
     }
 
     public static void Showmusic(String musicnow) {
-        Matcher name;
-        Pattern newname = Pattern.compile("^(?:.*\\/)*([^\\/\\r\\n]+?|)(?=(?:\\.[^\\/\\r\\n.]*)?$)");
-        name = newname.matcher(musicnow);
-        boolean Found = name.find();
-        String stringmusic = null;
-        if (Found) {
-            stringmusic = name.group(1);
-            System.out.println(name);
-        } else {
-            System.out.println("Match not found");
+        try {
+            System.out.println(Songnow);
+        } catch (Exception e) {
+            System.out.println("not found");
         }
-        showmusic = new JTextArea("Now playing: " + stringmusic);
-        showmusic.setForeground(Color.PINK);
-        showmusic.setFont(Font.getFont(Font.SANS_SERIF));
-        showmusic.setBounds(400, 15, 350, 30);
-        showmusic.setBackground(Color.darkGray);
-        showmusic.setEditable(false);
-        showmusic.setBorder(null);
-        frame.add(showmusic);
-        frame.setVisible(true);
     }
 
     public static void prepareGUI() {
@@ -119,19 +104,22 @@ public class owenplayer {
         frame.setTitle("Music Player");
         frame.getContentPane().setBackground(Color.DARK_GRAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(190, 100, 840, 600);
+        frame.setBounds(200, 100, 840, 600);
         frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
         gifmusic.setBounds(355, 50, 300, 300);
         gifmusic.setBorder(null);
-        frame.add(gifmusic);
         Container c = frame.getContentPane();
+        frame.add(gifmusic);
+        c.setBounds(0, 0, 190, 600);
         musiclist.setViewportView(listpanel);
-        musiclist.setPreferredSize(new Dimension(190, 1100));
+        musiclist.setPreferredSize(new Dimension(190, 600));
         musiclist.setBounds(0, 0, 190, 1000);
         listpanel.setBackground(Color.GRAY);
-        listpanel.setBounds(0, 10, 160, 600);
-        listpanel.setLayout(new BorderLayout());
-        c.add(musiclist, BorderLayout.WEST);
+        listpanel.setBounds(0, 10, 190, 600);
+        listpanel.setLayout(null);
+        //listpanel.setLayout(new BorderLayout());
+        c.add(musiclist);
         frame.setVisible(true);
         musiclist.setVisible(true);
         // Setting properties of select mp3 button
@@ -141,7 +129,7 @@ public class owenplayer {
         selectButton.setBorder(null);
         selectButton.setBorderPainted(false);
         // selectButton.setContentAreaFilled(false);
-        listpanel.add(selectButton, BorderLayout.NORTH);
+        listpanel.add(selectButton);
         System.out.println(clicked);
         selectButton.addActionListener(new ActionListener() {
             @Override
@@ -192,7 +180,7 @@ public class owenplayer {
                         System.out.println(matcher.group(0));
                         path = file.getAbsolutePath();
                         System.out.println("File path: " + path + "\n");
-                        listpanel.setBounds(0, 10, 160, 600 + i);
+                        //listpanel.setBounds(0, 10, 160, 600 + i);
                         // musiclist.setBounds(0, 0, 190, 1000+i);
                         musicbutton.setBounds(10, 60 + i, 150, 30);
                         musicbutton.setOpaque(true);
